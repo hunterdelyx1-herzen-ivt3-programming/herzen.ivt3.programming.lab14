@@ -40,6 +40,6 @@ public class Zad4 {
 
         }
 
-        System.out.println("There is " + list.size() + " prime numbers in range (" + 1L + "; " + startNumber + ")");
+        System.out.println("There is " + list.size() + " prime numbers in range [" + 1L + "; " + startNumber + "]");
     }
 }
