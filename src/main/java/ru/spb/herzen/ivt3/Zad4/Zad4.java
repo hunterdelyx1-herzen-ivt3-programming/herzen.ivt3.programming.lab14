@@ -22,13 +22,13 @@ public class Zad4 {
                 .setNameFormat("Thread-%d")
                 .build();
 
-        ThreadPoolExecutor service = new MyThreadPoolExecutor(25, 25, 10, TimeUnit.SECONDS, new ArrayBlockingQueue<Runnable>(pulls), threadFactory, rejectionHandler);
+        MyThreadPoolExecutor service = new MyThreadPoolExecutor(25, 25, 10, TimeUnit.SECONDS, new ArrayBlockingQueue<Runnable>(pulls), threadFactory, rejectionHandler);
 
         List<Long> list = Collections.synchronizedList(new ArrayList<Long>());
 
         Long startNumber = 1L;
         for (int i = 0; i < pulls; i++) {
-            service.submit(new PrimeNumberCalculator(list, startNumber));
+            service.submit(new LockablePrimeNumberCalculator(list, startNumber));
             startNumber += 1000000L;
         }
 
@@ -41,5 +41,6 @@ public class Zad4 {
         }
 
         System.out.println("There is " + list.size() + " prime numbers in range [" + 1L + "; " + startNumber + "]");
+        System.out.println("Execution time is " + service.getExecutionTime());
     }
 }

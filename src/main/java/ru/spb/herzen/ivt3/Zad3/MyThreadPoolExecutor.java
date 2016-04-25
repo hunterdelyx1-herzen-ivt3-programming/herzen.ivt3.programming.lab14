@@ -6,6 +6,8 @@ import java.util.concurrent.atomic.AtomicLong;
 public class MyThreadPoolExecutor extends ThreadPoolExecutor {
     private final ThreadLocal<Long> startTime = new ThreadLocal<Long>();
 
+    private AtomicLong totalTime = new AtomicLong();
+
     public MyThreadPoolExecutor(int corePoolSize, int maximumPoolSize, long keepAliveTime, TimeUnit unit, BlockingQueue<Runnable> workQueue) {
         super(corePoolSize, maximumPoolSize, keepAliveTime, unit, workQueue);
     }
@@ -30,6 +32,12 @@ public class MyThreadPoolExecutor extends ThreadPoolExecutor {
 
     protected void afterExecute(Runnable runnable, Throwable throwable) {
         super.afterExecute(runnable, throwable);
-        System.out.println(runnable.toString() + " completed in " + (System.nanoTime() - startTime.get()));
+        long taskTime = (System.nanoTime() - startTime.get());
+        totalTime.addAndGet(taskTime);
+        System.out.println(runnable.toString() + " completed in " + taskTime);
+    }
+
+    public Long getExecutionTime(){
+        return totalTime.get();
     }
 }
