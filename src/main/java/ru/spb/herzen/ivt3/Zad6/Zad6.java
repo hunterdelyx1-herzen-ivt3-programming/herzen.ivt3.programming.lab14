@@ -32,14 +32,14 @@ public class Zad6 {
 
         ExecutorService service = Executors.newFixedThreadPool(30, threadFactory);
 
-        for (int i = 0; i<20; i++) {
+        for (int i = 0; i<30; i++) {
             service.submit(() -> {
                 for (int j = 0; j<20; j++){
-                    Integer index = Math.abs(random.nextInt()) % keys.length;
-                    Integer value = list.get(keys[index]);
-                    System.out.println(Thread.currentThread().getName()+ " key: " + keys[index] + ", value: " + value);
-                    if( value % 5 == 0) list.put(keys[index], value/5);
-                    else list.put(keys[index], value + 7);
+                    Integer index = Math.abs(random.nextInt()) % Zad6.keys.length;
+                    Integer value = list.get(Zad6.keys[index]);
+                    System.out.println(Thread.currentThread().getName()+ " key: " + Zad6.keys[index] + ", value: " + value);
+                    if( value % 5 == 0) list.put(Zad6.keys[index], value/5);
+                    else list.put(Zad6.keys[index], value + 7);
                 }
             });
         }
