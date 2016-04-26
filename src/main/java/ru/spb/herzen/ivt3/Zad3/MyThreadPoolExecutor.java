@@ -33,7 +33,7 @@ public class MyThreadPoolExecutor extends ThreadPoolExecutor {
     protected void afterExecute(Runnable runnable, Throwable throwable) {
         super.afterExecute(runnable, throwable);
         long taskTime = (System.nanoTime() - startTime.get());
-        totalTime.addAndGet(taskTime);
+        totalTime.getAndAdd(taskTime);
         System.out.println(runnable.toString() + " completed in " + taskTime);
     }
 
