@@ -10,7 +10,7 @@ import java.util.concurrent.*;
 import java.lang.Math;
 
 public class Zad6 {
-    static String[] keys = {"Orlov", "Muromtseva", "Varlamov", "Nikolaev", "Dunaev", "Bashmanova"};
+    private static String[] keys = {"Orlov", "Muromtseva", "Varlamov", "Nikolaev", "Dunaev", "Bashmanova"};
 
     public static void main(String[] args) {
         ConcurrentHashMap<String, Integer> list = new ConcurrentHashMap<String, Integer>();
