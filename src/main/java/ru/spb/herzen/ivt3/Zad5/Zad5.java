@@ -10,24 +10,28 @@ import java.util.concurrent.*;
 public class Zad5 {
 
     public static void main(String[] args) {
-        Zad5.calc(5);
-        Zad5.calc(15);
+        Long first = Zad5.calc(25, 5);
+        Long second = Zad5.calc(25, 15);
+
+        System.out.println("=====");
+        System.out.println("fist threads execution time: " + first);
+        System.out.println("second threads time: " + second);
     }
 
-    public static Long calc(int pulls) {
+    public static Long calc(int threadsNumber, int number) {
         final RejectedExecutionHandler rejectionHandler = new MyRejectedExecutionHandler();
 
         final ThreadFactory threadFactory = new ThreadFactoryBuilder()
                 .setNameFormat("Thread-%d")
                 .build();
 
-        MyThreadPoolExecutor service = new MyThreadPoolExecutor(25, 25, 10, TimeUnit.SECONDS, new ArrayBlockingQueue<Runnable>(pulls), threadFactory, rejectionHandler);
+        MyThreadPoolExecutor service = new MyThreadPoolExecutor(number, number, 10, TimeUnit.SECONDS, new ArrayBlockingQueue<>(threadsNumber), threadFactory, rejectionHandler);
 
         ConcurrentLinkedQueue<Long> list = new ConcurrentLinkedQueue<>();
 
 
         Long startNumber = 1L;
-        for (int i = 0; i < pulls; i++) {
+        for (int i = 0; i < number; i++) {
             service.submit(new NotLockablePrimeNumberCalculator(list, startNumber));
             startNumber += 1000000L;
         }
@@ -39,6 +43,8 @@ public class Zad5 {
 
         }
 
+        System.out.println("There is " + list.size() + " prime numbers in range [" + 1L + "; " + (startNumber) + "]");
+        System.out.println("Execution time is " + service.getExecutionTime());
         return service.getExecutionTime();
     }
 }
