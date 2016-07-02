@@ -6,9 +6,8 @@ public class LockablePrimeNumberCalculator extends PrimeNumberCalculator {
     private List<Long> list;
 
     public LockablePrimeNumberCalculator(List<Long> list, Long startNumber) {
+        super(startNumber);
         this.list = list;
-        this.startNumber = startNumber;
-        this.endNumber = startNumber + 1000000L;
     }
 
     protected void save(Long number) {

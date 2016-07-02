@@ -8,9 +8,8 @@ public class NotLockablePrimeNumberCalculator extends PrimeNumberCalculator {
     private ConcurrentLinkedQueue<Long> list;
 
     public NotLockablePrimeNumberCalculator(ConcurrentLinkedQueue<Long> list, Long startNumber) {
+        super(startNumber);
         this.list = list;
-        this.startNumber = startNumber;
-        this.endNumber = startNumber + 1000000L;
     }
 
     protected void save(Long number) {

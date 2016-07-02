@@ -1,10 +1,17 @@
 package ru.spb.herzen.ivt3.Zad4;
 
-public abstract class PrimeNumberCalculator implements Runnable {
+public class PrimeNumberCalculator implements Runnable {
     protected Long startNumber;
     protected Long endNumber;
 
+    public PrimeNumberCalculator(Long startNumber) {
+        this.startNumber = startNumber;
+        this.endNumber = startNumber + 1000000L;
+    }
+
     private boolean isPrime(Long number) {
+        if (number == 1L) return false;
+
         for (Long i = 2L; i <= Math.sqrt(number); i++) {
             if (number % i == 0) return false;
         }
@@ -18,5 +25,7 @@ public abstract class PrimeNumberCalculator implements Runnable {
         }
     }
 
-    protected abstract void save(Long number);
+    protected void save(Long number) {
+        System.out.println(number);
+    };
 }
